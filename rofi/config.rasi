@@ -1,0 +1,40 @@
+configuration {
+	font: "jetbrains mono 10";
+	location: 1;
+}
+
+window {
+	width: 100%;
+	background-color: #161616;
+	border: none;
+}
+
+listview {
+	layout: horizontal;
+	scrollbar: false;
+	spacing: 10;
+	border: none;
+}
+
+prompt {
+	text-color: #FDFCE5;
+}
+
+entry {
+	text-color: #FDFCE5;
+}
+
+element {
+	--border-radius: 3;
+}
+
+element-text {
+	text-color: #EEEEEE;
+	background-color: #222831;
+	padding: 0 10;
+	border: none;
+}
+
+element-text selected {
+	background-color: #10316B;
+}

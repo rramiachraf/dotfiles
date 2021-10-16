@@ -1,0 +1,37 @@
+env:
+  TERM: xterm-256color
+window:
+  padding:
+    x: 10
+    y: 10
+  dynamic_padding: false
+  dynamic_title: true
+font:
+  normal:
+    family: jetbrains mono
+  size: 10
+colors:
+  primary:
+    background: "#151515"
+    foreground: "#E4EFE7"
+  cursor:
+    text: "#DBF6E9"
+    cursor: "#2F5D62"
+  normal:
+    black: "#222831"
+    red: "#FF5C58"
+    green: "#C6D57E"
+    yellow: "#FEC260"
+    blue: "#22577A"
+    magenta: "#F56FAD"
+    cyan: "#297F87"
+    white: "#F7F3E9"
+  bright:
+    black: "#343A40"
+    red: "#F55C47"
+    green: "#B1E693"
+    yellow: "#FFEF78"
+    blue: "#BCE6EB"
+    magenta: "#F56A79"
+    cyan: "#39A6A3"
+    white: "#F1F6F9"
