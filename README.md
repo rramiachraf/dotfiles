@@ -8,8 +8,8 @@ export COINMARKETCAP_API="[https://pro.coinmarketcap.com]"
 export OPENWEATHERMAP_API="[https://openweathermap.org]"
 ```
 ### Fonts
-- Jetbrains Mono Nerd Font
-- Fira Code
+- [Jetbrains Mono Nerd Font](https://github.com/ryanoasis/nerd-fonts)
+- [Fira Code](https://github.com/tonsky/FiraCode)
 ### Dependencies
 - [awesomeWM](https://awesomewm.org)
 - [allacritty](https://github.com/alacritty/alacritty)
