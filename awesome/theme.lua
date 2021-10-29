@@ -39,6 +39,10 @@ theme.bg_systray    = main_color
 
 theme.taglist_bg_focus = "#112031"
 
+theme.tooltip_bg = main_color
+theme.tooltip_fg = "#F3F1F5"
+theme.tooltip_border_color = "F3F1F5"
+theme.tooltip_border_width = 2
 
 -- There are other variable sets
 -- overriding the default one when

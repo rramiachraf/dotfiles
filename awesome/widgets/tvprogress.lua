@@ -10,7 +10,7 @@ if file_exists then
 	file:close()
 end
 
-local text = file_exists and string.format("%s - S%sE%02d", tv.show, tv.season, tv.episode) or "N/A"
+local text = file_exists and string.format("%s - S%02dE%02d", tv.work, tv.season, tv.episode) or "N/A"
 
 local tvprogress = wibox.widget {
 	widget = wibox.widget.textbox,
@@ -18,8 +18,10 @@ local tvprogress = wibox.widget {
 }
 
 tvprogress:connect_signal("button::press", function()
-	command = string.format("alacritty --working-directory %s", file_exists and tv.location:gsub(" ", "\\ ") or os.getenv("HOME"))
-	awful.spawn(command)
+	tv_location = tv.location and tv.location:gsub(" ", "\\ ") or os.getenv("HOME")
+	tv_command = string.format("alacritty --working-directory %s", file_exists and tv_location)
+	anime_command = string.format("alacritty --working-directory %s/Scripts/ani-cli -e ./ani-cli", os.getenv("HOME"))
+	if tv.type == "anime" then awful.spawn(anime_command) else awful.spawn(tv_command) end
 end
 )
 

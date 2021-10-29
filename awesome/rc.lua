@@ -60,7 +60,7 @@ end
 
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
-beautiful.init("/home/achraf/.config/awesome/theme.lua")
+beautiful.init(os.getenv("HOME").."/.config/awesome/theme.lua")
 
 -- This is used later as the default terminal and editor to run.
 terminal = "alacritty"
@@ -201,7 +201,7 @@ awful.screen.connect_for_each_screen(
         set_wallpaper(s)
 
         -- Each screen has its own tag table.
-        awful.tag({"www", "dev", "pen", "note", "ent", "misc"}, s, awful.layout.layouts[1])
+        awful.tag({"www", "dev", "pen", "note", "ent", "misc"}, s, awful.layout.layouts[6])
 
         -- Create a promptbox for each screen
         s.mypromptbox = awful.widget.prompt()
