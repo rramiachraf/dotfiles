@@ -16,3 +16,8 @@ export OPENWEATHERMAP_API="[https://openweathermap.org]"
 - [rofi](https://github.com/davatorium/rofi)
 - acpi
 - [ani-cli](https://github.com/pystardust/ani-cli)
+
+## Cmus
+```vim
+:colorscheme green
+```
