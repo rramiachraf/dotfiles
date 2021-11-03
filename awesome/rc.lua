@@ -350,7 +350,7 @@ globalkeys =
     -- Standard program
     awful.key(
         {modkey},
-        "Return",
+        "t",
         function()
             awful.spawn(terminal)
         end,
