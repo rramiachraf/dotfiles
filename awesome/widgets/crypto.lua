@@ -39,7 +39,7 @@ local crypto_tooltip = awful.tooltip{
 crypto_tooltip:add_to_object(crypto_widget)
 
 crypto_widget:connect_signal("mouse::enter", function()
-	local text = string.format("%.2f USD", balance * price)
+	local text = string.format("%.2f %s = %.2f USD", balance, currency, balance * price)
 	crypto_tooltip.text = text
 end)
 
