@@ -1,5 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
+local json = require("packages.jsonlua.json")
 
 local endpoint = "http://api.openweathermap.org/data/2.5/weather"
 local api_key = os.getenv("OPENWEATHERMAP_API")
@@ -14,10 +15,11 @@ weather_widget =
     cmd,
     1800,
     function(widget, stdout)
-	widget.font = beautiful.font
-        local temp = stdout:match('temp":[0-9]+.?[0-9]*,'):match("[0-9]+.?[0-9]*")
-	local temp_int = tonumber(temp)
-        widget:set_markup("<span foreground='#687980'>  </span>"..math.ceil(temp_int).."°C")
+        local data = json.decode(stdout)
+	local temp = data.main.temp
+	local description = data.weather[1].main
+        local markup = string.format("<span foreground='#687980'>  </span>%.0f°C", temp)
+	widget:set_markup(markup)
     end
 )
 
