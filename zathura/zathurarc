@@ -1,0 +1,6 @@
+set recolor true
+set recolor-keephue true
+set recolor-lightcolor "#151515"
+set recolor-darkcolor "#C0BAB2"
+set default-bg "#151515"
+set font "fira code"
