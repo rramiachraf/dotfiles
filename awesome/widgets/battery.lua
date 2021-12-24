@@ -32,7 +32,7 @@ battery =
 		
 		if status:match("Charging") and percentage <= 95 then
 			widget:set_markup(icon_markup(percentage, "#FFB344"))
-		elseif percentage > 95 then
+		elseif status:match("Charging") and percentage > 95 then
 			widget:set_markup(icon_markup(percentage, "#6ECB63"))
 		elseif percentage < 30 then
 			widget:set_markup(icon_markup(percentage, "#FF4848"))
