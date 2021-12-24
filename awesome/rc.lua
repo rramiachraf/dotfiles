@@ -58,6 +58,8 @@ do
 end
 -- }}}
 
+-- Start compton
+-- awful.spawn("picom")
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(os.getenv("HOME").."/.config/awesome/theme.lua")
@@ -201,7 +203,7 @@ awful.screen.connect_for_each_screen(
         set_wallpaper(s)
 
         -- Each screen has its own tag table.
-        awful.tag({"www", "dev", "pen", "note", "ent", "misc"}, s, awful.layout.layouts[6])
+        awful.tag({"www", "code", "pen", "note", "ent", "misc"}, s, awful.layout.layouts[6])
 
         -- Create a promptbox for each screen
         s.mypromptbox = awful.widget.prompt()

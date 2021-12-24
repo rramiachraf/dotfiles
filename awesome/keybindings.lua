@@ -10,7 +10,7 @@ local rofi_drun =
     function()
         awful.spawn("rofi -show drun")
     end,
-    {description = "rofi drun prompt", category = "launcher"}
+    {description = "rofi drun prompt", group = "launcher"}
 )
 
 local rofi_run = 
@@ -20,7 +20,7 @@ local rofi_run =
 	function()
 		awful.spawn("rofi -show run")
 	end,
-	{description = "rofi run prompt", category = "launcher"}
+	{description = "rofi run prompt", group = "launcher"}
 )
 
 local rofi_window =
@@ -30,9 +30,31 @@ local rofi_window =
 	function()
 		awful.spawn("rofi -show window")
 	end,
-	{description = "rofi window prompt", category = "launcher"}
+	{description = "rofi window prompt", group = "launcher"}
 )
 
-local globalkeys = gears.table.join(rofi_drun, rofi_run, rofi_window)
+local libreworlf = 
+	awful.key(
+	{modkey},
+	"q",
+	function()
+		awful.spawn("librewolf")
+	end,
+	{description = "launch librewolf browser", group = "applications"}
+)
 
-return globalkeys
+local session_lock =
+	awful.key(
+	{modkey, "shift"},
+	"s",
+	function()
+		awful.spawn("alacritty")
+	end,
+	{description = "lock session", group = "system"}
+)
+
+local rofi = gears.table.join(rofi_drun, rofi_run, rofi_window)
+local applications = gears.table.join(librewolf)
+local system = gears.table.join(sssion_lock)
+
+return gears.table.join(rofi, applications, system)

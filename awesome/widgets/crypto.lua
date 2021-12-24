@@ -21,7 +21,7 @@ local crypto_widget = awful.widget.watch(cmd, 900, function(widget, stdout)
 
 	widget:set_markup(
 		string.format(
-		"<span foreground='#687980'>%s </span>%.8f USD <span foreground='%s'>%s %.2f%%</span>",
+		"<span foreground='#687980'>%s </span>%.6f USD <span foreground='%s'>%s %.2f%%</span>",
 		currency, 
 		price,
 		percentage_foreground, 
