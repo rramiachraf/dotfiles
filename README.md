@@ -13,6 +13,6 @@ export OPENWEATHERMAP_API="[https://openweathermap.org]"
 ### Dependencies
 - [awesomeWM](https://awesomewm.org)
 - [allacritty](https://github.com/alacritty/alacritty)
+- [xsecurelock](https://github.com/google/xsecurelock)
 - [rofi](https://github.com/davatorium/rofi)
-- acpi
 - [ani-cli](https://github.com/pystardust/ani-cli)
