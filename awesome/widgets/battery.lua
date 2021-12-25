@@ -3,15 +3,13 @@ local beautiful = require("beautiful")
 
 local DIR = "/sys/class/power_supply/BAT0/"
 
-function icon_markup(percentage, color)
+function icon_markup(capacity, color)
 	if color == nil then color = "#687980" end
-	markup = "<span foreground='"..color.."'> </span>"..percentage.."%"
+	markup = "<span foreground='"..color.."'> </span>"..capacity.."%"
 	return markup
 end
 
--- use energy_full_design to make tooltip for battery quality
-
-battery =
+local widget =
     awful.widget.watch(
     "cat "..DIR.."present",
     1,
@@ -19,35 +17,48 @@ battery =
 	widget.font = beautiful.font
 
 	if stdout:match("1") then
-		local energy_now_file = io.open(DIR.."energy_now", "r")
-		local energy_full_file = io.open(DIR.."energy_full", "r")
 		local status_file = io.open(DIR.."status", "r")
+		local capacity_file = io.open(DIR.."capacity", "r")
 
-		local energy_now = energy_now_file:read("a")
-		local energy_full = energy_full_file:read("a")
+		local capacity = tonumber(capacity_file:read("a"))
 		local status = status_file:read("a")
-
-		local formula = (tonumber(energy_now) / tonumber(energy_full)) * 100
-		local percentage = math.floor(formula)
 		
-		if status:match("Charging") and percentage <= 95 then
-			widget:set_markup(icon_markup(percentage, "#FFB344"))
-		elseif status:match("Charging") and percentage > 95 then
-			widget:set_markup(icon_markup(percentage, "#6ECB63"))
-		elseif percentage < 30 then
-			widget:set_markup(icon_markup(percentage, "#FF4848"))
+		if status:match("Charging") and capacity <= 95 then
+			widget:set_markup(icon_markup(capacity, "#FFB344"))
+		elseif status:match("Charging") and capacity > 95 then
+			widget:set_markup(icon_markup(capacity, "#6ECB63"))
+		elseif capacity < 30 then
+			widget:set_markup(icon_markup(capacity, "#FF4848"))
 		else
-			widget:set_markup(icon_markup(percentage))
+			widget:set_markup(icon_markup(capacity))
 		end
 
-		-- cleanup
-		energy_now_file:close()
-		energy_full_file:close()
 		status_file:close()
+		capacity_file:close()
 	else
-		widget:set_markup("NO BATTERY")
+		widget:set_markup("<span color='#687980'>NO BATTERY</span>")
 	end
 end
 )
 
-return battery
+local tooltip = awful.tooltip{
+	margins_leftright = 10,
+}
+
+tooltip:add_to_object(widget)
+
+local energy_full_design_file = io.open(DIR.."energy_full_design")
+local energy_full_file = io.open(DIR.."energy_full")
+local energy_full_design = energy_full_design_file:read("a")
+local energy_full = energy_full_file:read("a")
+energy_full_design_file:close()
+energy_full_file:close()
+
+widget:connect_signal("mouse::enter", function()
+	local health = (tonumber(energy_full) / tonumber(energy_full_design)) * 100
+	local text = string.format("Battery Health: %.0f%%", health)
+	tooltip.text = text
+end
+)
+
+return widget 
