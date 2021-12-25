@@ -47,17 +47,20 @@ local tooltip = awful.tooltip{
 
 tooltip:add_to_object(widget)
 
-local energy_full_design_file = io.open(DIR.."energy_full_design")
-local energy_full_file = io.open(DIR.."energy_full")
-local energy_full_design = energy_full_design_file:read("a")
-local energy_full = energy_full_file:read("a")
-energy_full_design_file:close()
-energy_full_file:close()
-
 widget:connect_signal("mouse::enter", function()
-	local health = (tonumber(energy_full) / tonumber(energy_full_design)) * 100
-	local text = string.format("Battery Health: %.0f%%", health)
-	tooltip.text = text
+	local energy_full_design_file = io.open(DIR.."energy_full_design")
+	if energy_full_design_file ~= nil then
+		local energy_full_file = io.open(DIR.."energy_full")
+		local energy_full_design = energy_full_design_file:read("a")
+		local energy_full = energy_full_file:read("a")
+		energy_full_design_file:close()
+		energy_full_file:close()
+		local health = (tonumber(energy_full) / tonumber(energy_full_design)) * 100
+		local text = string.format("Battery Health: %.0f%%", health)
+		tooltip.text = text
+	else
+		tooltip.text = "Battery Health: Unknown"
+	end
 end
 )
 
