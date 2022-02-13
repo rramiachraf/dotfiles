@@ -7,9 +7,8 @@ memory_widget =
     5,
     function(widget, stdout)
         widget.font = beautiful.font
-        widget:set_markup("<span foreground='#687980'>  </span>"..stdout:match("[0-9]+").." MiB")
+        widget:set_markup("<span foreground='#687980'>  </span>" .. stdout:match("[0-9]+") .. " MiB")
     end
 )
 
 return memory_widget
-

@@ -17,37 +17,36 @@ opts.position = "top"
 --opts.height = 30
 
 function create_wibar(s, tasks, taglists)
-	opts.screen = s
-	wibar = awful.wibar(opts)
+    opts.screen = s
+    wibar = awful.wibar(opts)
 
-	left = {
-		layout = wibox.layout.fixed.horizontal,
-		taglists
-	}
+    left = {
+        layout = wibox.layout.fixed.horizontal,
+        taglists
+    }
 
-	right = {
-		layout = wibox.layout.fixed.horizontal,
-		spacing = 15,
-		systray,
-		tvprogress,
-		crypto,
-		weather,
-		disk,
-		memory,
-		battery,
-		network,
-		clock,
-	}
+    right = {
+        layout = wibox.layout.fixed.horizontal,
+        spacing = 15,
+        systray,
+        tvprogress,
+        crypto,
+        weather,
+        disk,
+        memory,
+        battery,
+        network,
+        clock
+    }
 
-
-	wibar:setup{
-		layout = wibox.layout.align.horizontal,
-		left,
-		{
-			layout = wibox.layout.align.horizontal,
-		},
-		right,
-	}
+    wibar:setup {
+        layout = wibox.layout.align.horizontal,
+        left,
+        {
+            layout = wibox.layout.align.horizontal
+        },
+        right
+    }
 end
 
 return create_wibar

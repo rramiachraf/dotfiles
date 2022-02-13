@@ -59,7 +59,7 @@ end
 -- }}}
 
 -- Start compton
--- awful.spawn("picom")
+--awful.spawn("picom")
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(os.getenv("HOME").."/.config/awesome/theme.lua")
@@ -449,15 +449,6 @@ globalkeys =
             }
         end,
         {description = "lua execute prompt", group = "awesome"}
-    ),
-    -- Menubar
-    awful.key(
-        {modkey},
-        "p",
-        function()
-            menubar.show()
-        end,
-        {description = "show the menubar", group = "launcher"}
     )
 )
 
