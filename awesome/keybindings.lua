@@ -65,7 +65,14 @@ local power_prompt =
             cmd,
             function(stdout)
                 if stdout:match("Suspend") then
-                    awful.spawn("xsecurelock")
+                    local env = {
+                                    "XSECURELOCK_SHOW_DATETIME=1", 
+                                    "XSECURELOCK_FONT=jetbrainsmononerdfont", 
+                                    "XSECURELOCK_SHOW_HOSTNAME=0"
+                                }
+                    local xsecurelock = string.format("%s xsecurelock", table.concat(env, " "))
+                    awful.spawn.with_shell(xsecurelock)
+                    awful.spawn("systemctl suspend")
                 elseif stdout:match("Shut Down") then
                     awful.spawn("shutdown now")
                 elseif stdout:match("Restart") then
