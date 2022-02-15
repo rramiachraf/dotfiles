@@ -42,7 +42,7 @@ local rofi_window =
     }
 )
 
-local librewolf =
+local browser =
     awful.key(
     {modkey},
     "q",
@@ -50,7 +50,7 @@ local librewolf =
         awful.spawn("librewolf")
     end,
     {
-        description = "launch librewolf browser",
+        description = "launch browser",
         group = "applications"
     }
 )
@@ -85,7 +85,7 @@ local power_prompt =
 )
 
 local rofi = gears.table.join(rofi_drun, rofi_run, rofi_window)
-local applications = gears.table.join(librewolf)
+local applications = gears.table.join(browser)
 local system = gears.table.join(power_prompt)
 
 return gears.table.join(rofi, applications, system)
