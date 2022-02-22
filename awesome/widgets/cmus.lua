@@ -8,7 +8,7 @@ local widget = awful.widget.watch("cmus-remote -Q", 1, function(widget, stdout, 
     else
         local artist = stdout:match("tag artist [a-zA-Z0-9'é ]*"):gsub("tag artist ", "")
         local title = stdout:match("tag title [a-zA-Z0-9'é ]*"):gsub("tag title ", "")
-        local playing = stdout:match("status %a*"):gsub("status ", "")
+        local playing = stdout:match("status %w+"):gsub("status ", "")
         local format = ""
 
         if #title > 17 then
