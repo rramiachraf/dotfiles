@@ -1,5 +1,6 @@
 local awful = require("awful")
 local json = require("packages.jsonlua.json")
+local beautiful = require("beautiful")
 
 local price = 0
 local balance = 1498143.16
@@ -20,7 +21,7 @@ local crypto_widget =
         price = decoded.data[currency].quote.USD.price
         day_percentage = decoded.data[currency].quote.USD.percent_change_24h
 
-        percentage_foreground = day_percentage > 0 and "#6ECB63" or "#FF4848"
+        percentage_foreground = day_percentage > 0 and beautiful.green or beautiful.red
         symbol = day_percentage > 0 and "▲" or "▼"
 
         widget:set_markup(

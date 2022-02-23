@@ -7,6 +7,8 @@ local theme = {}
 -- Palette
 theme.bg = "#161616"
 theme.fg = "#F3F1F5"
+theme.green = "#6ECB63"
+theme.red = "#FF4848"
 
 -- General
 theme.font          = "jetbrains mono nerd font medium 10"

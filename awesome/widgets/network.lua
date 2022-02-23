@@ -6,12 +6,11 @@ network =
     "ip a",
     10,
     function(widget, stdout)
-        widget.font = beautiful.font
-
+        local format = "<span foreground='%s'>%s</span>"
         if stdout:match("state UP") ~= nil then
-            widget:set_markup("<span foreground='#6ECB63'>CONNECTED</span>")
+            widget:set_markup(string.format(format, beautiful.green, "CONNECTED"))
         else
-            widget:set_markup("<span foreground='#FF4848'>DISCONNECTED</span>")
+            widget:set_markup(string.format(format, beautiful.red, "DISCONNECTED"))
         end
     end
 )
