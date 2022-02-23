@@ -43,7 +43,7 @@ theme.tooltip_border_color = theme.fg
 theme.tooltip_border_width = 1
 
 -- Taglist
-theme.taglist_fg_occupied = "#94B49F"
+theme.taglist_fg_occupied = "#FFE162"
 theme.taglist_bg_focus = "#112031"
 
 -- Wallpaper
