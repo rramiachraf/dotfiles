@@ -7,27 +7,18 @@ local theme = {}
 -- Palette
 theme.bg = "#161616"
 theme.fg = "#F3F1F5"
+theme.main = "#072227"
 theme.green = "#6ECB63"
 theme.red = "#FF4848"
 
 -- General
 theme.font          = "jetbrains mono nerd font medium 10"
 
-theme.bg_normal     = "#222222"
-theme.bg_focus      = "#535d6c"
-theme.bg_urgent     = "#ff0000"
-theme.bg_minimize   = "#444444"
-
-theme.fg_normal     = "#aaaaaa"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
-
+-- Windows
 theme.useless_gap   = dpi(3)
-theme.border_width  = dpi(2)
-theme.border_normal = "#171717"
-theme.border_focus  = "#112031"
-theme.border_marked = "#91231c"
+theme.border_width  = dpi(3)
+theme.border_normal = "#131313"
+theme.border_focus  = theme.main
 
 -- Navbar
 theme.wibar_bg      = theme.bg
@@ -44,7 +35,7 @@ theme.tooltip_border_width = 1
 
 -- Taglist
 theme.taglist_fg_occupied = "#FFE162"
-theme.taglist_bg_focus = "#112031"
+theme.taglist_bg_focus = theme.main
 
 -- Wallpaper
 theme.wallpaper = os.getenv("HOME")..".config/awesome/wallpaper.jpg"
