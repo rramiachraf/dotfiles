@@ -22,15 +22,13 @@ local crypto_widget =
         day_percentage = decoded.data[currency].quote.USD.percent_change_24h
 
         percentage_foreground = day_percentage > 0 and beautiful.green or beautiful.red
-        symbol = day_percentage > 0 and "▲" or "▼"
 
         widget:set_markup(
             string.format(
-                "<span foreground='#687980'>%s </span>%.6f USD <span foreground='%s'>%s %.2f%%</span>",
+                "<span foreground='#687980'>%s</span> %.6f USD <span foreground='%s'>%.2f%%</span>",
                 currency,
                 price,
                 percentage_foreground,
-                symbol,
                 day_percentage
             )
         )

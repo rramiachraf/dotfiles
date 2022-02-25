@@ -12,7 +12,7 @@ theme.green = "#6ECB63"
 theme.red = "#FF4848"
 
 -- General
-theme.font          = "jetbrains mono nerd font medium 10"
+theme.font          = "jetbrains mono medium 10"
 
 -- Windows
 theme.useless_gap   = dpi(3)

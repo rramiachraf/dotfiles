@@ -15,7 +15,7 @@ disk =
     10800,
     function(widget, stdout)
         widget.font = beautiful.font
-        widget:set_markup("<span foreground='#687980'>  </span>" .. stdout)
+        widget:set_markup("<span foreground='#687980'>DISK</span> " .. stdout)
     end
 )
 

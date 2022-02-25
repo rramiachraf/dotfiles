@@ -7,7 +7,7 @@ function icon_markup(capacity, color)
     if color == nil then
         color = "#687980"
     end
-    markup = "<span foreground='" .. color .. "'> </span>" .. capacity .. "%"
+    markup = "<span foreground='" .. color .. "'>BAT</span> " .. capacity .. "%"
     return markup
 end
 
@@ -38,7 +38,7 @@ local widget =
             status_file:close()
             capacity_file:close()
         else
-            widget:set_markup("<span color='#687980'>NO BATTERY</span>")
+            widget:set_markup("<span color='#687980'>BAT</span> ".."N/A")
         end
     end
 )

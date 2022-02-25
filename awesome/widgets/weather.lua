@@ -18,7 +18,7 @@ weather_widget =
         local data = json.decode(stdout)
         local temp = data.main.temp
         local description = data.weather[1].main
-        local markup = string.format("<span foreground='#687980'>  </span>%.0f°C", temp)
+        local markup = string.format("<span foreground='#687980'>WEATHER</span> %.0f°C", temp)
         widget:set_markup(markup)
     end
 )
