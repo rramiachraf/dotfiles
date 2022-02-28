@@ -15,7 +15,7 @@ local cmd = "curl -sL '" .. full_url .. "' -H 'X-CMC_PRO_API_KEY: " .. api_key .
 local crypto_widget =
     awful.widget.watch(
     cmd,
-    900,
+    3600,
     function(widget, stdout)
         decoded = json.decode(stdout)
         price = decoded.data[currency].quote.USD.price

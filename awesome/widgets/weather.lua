@@ -13,7 +13,7 @@ local cmd = "curl '" .. url .. "' -H 'content-type: application/json'"
 weather_widget =
     awful.widget.watch(
     cmd,
-    1800,
+    3600,
     function(widget, stdout)
         local data = json.decode(stdout)
         local temp = data.main.temp
