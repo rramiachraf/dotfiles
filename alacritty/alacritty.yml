@@ -1,6 +1,7 @@
 env:
   TERM: xterm-256color
 window:
+  opacity: 0.8
   padding:
     x: 10
     y: 10
@@ -10,28 +11,31 @@ font:
   normal:
     family: jetbrains mono
   size: 10
+# Colors (Iceberg Dark)
 colors:
+  # Default colors
   primary:
-    background: "#151515"
-    foreground: "#E4EFE7"
-  cursor:
-    text: "#DBF6E9"
-    cursor: "#2F5D62"
+    background: '#161821'
+    foreground: '#d2d4de'
+
+  # Normal colors
   normal:
-    black: "#222831"
-    red: "#FF5C58"
-    green: "#C6D57E"
-    yellow: "#FEC260"
-    blue: "#22577A"
-    magenta: "#F56FAD"
-    cyan: "#297F87"
-    white: "#F7F3E9"
+    black:   '#161821'
+    red:     '#e27878'
+    green:   '#b4be82'
+    yellow:  '#e2a478'
+    blue:    '#84a0c6'
+    magenta: '#a093c7'
+    cyan:    '#89b8c2'
+    white:   '#c6c8d1'
+
+  # Bright colors
   bright:
-    black: "#343A40"
-    red: "#F55C47"
-    green: "#B1E693"
-    yellow: "#FFEF78"
-    blue: "#BCE6EB"
-    magenta: "#F56A79"
-    cyan: "#39A6A3"
-    white: "#F1F6F9"
+    black:   '#6b7089'
+    red:     '#e98989'
+    green:   '#c0ca8e'
+    yellow:  '#e9b189'
+    blue:    '#91acd1'
+    magenta: '#ada0d3'
+    cyan:    '#95c4ce'
+    white:   '#d2d4de'
