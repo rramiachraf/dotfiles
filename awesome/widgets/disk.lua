@@ -1,13 +1,7 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 
-local df = "df -T -h -t ext4"
-local tail = "tail -n 1"
-local sed = "sed 's/\\s+/\\t/gmi' -r"
-local cut = "cut -f 3,4"
-local awk = 'awk \'{printf \\"%s/%s\\", $2, $1}\''
-
-local cmd = 'bash -c "' .. df .. "|" .. tail .. "|" .. sed .. "|" .. cut .. "|" .. awk .. '"'
+local cmd = [[bash -c "df -h | awk '/dev\\/sda./ {print $3\"/\"$2}'"]]
 
 disk =
     awful.widget.watch(
