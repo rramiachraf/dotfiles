@@ -15,4 +15,3 @@ export OPENWEATHERMAP_API="[https://openweathermap.org]"
 - [allacritty](https://github.com/alacritty/alacritty)
 - [xsecurelock](https://github.com/google/xsecurelock)
 - [rofi](https://github.com/davatorium/rofi)
-- [ani-cli](https://github.com/pystardust/ani-cli)
