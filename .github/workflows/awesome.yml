@@ -5,7 +5,7 @@ jobs:
   awesome-syntax-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: action/checkout@v2
+      - uses: actions/checkout@v2
       - run: sudo apt-get update
       - run: sudo apt-get install awesome
       - run: awesome -k
