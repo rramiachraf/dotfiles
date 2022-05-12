@@ -5,18 +5,19 @@ local dpi = xresources.apply_dpi
 local theme = {}
 
 -- Palette
-theme.bg = "#161616"
+theme.bg = "#121d41"
 theme.fg = "#F3F1F5"
-theme.main = "#072227"
+theme.main = "#6d3153"
 theme.green = "#6ECB63"
 theme.red = "#FF4848"
+theme.title = "#FDAF75"
 
 -- General
 theme.font          = "jetbrains mono medium 10"
 
 -- Windows
-theme.useless_gap   = dpi(3)
-theme.border_width  = dpi(3)
+theme.useless_gap   = dpi(2)
+theme.border_width  = dpi(2)
 theme.border_normal = "#131313"
 theme.border_focus  = theme.main
 

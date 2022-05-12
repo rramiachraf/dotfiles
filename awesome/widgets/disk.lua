@@ -8,8 +8,8 @@ disk =
     cmd,
     10800,
     function(widget, stdout)
-        widget.font = beautiful.font
-        widget:set_markup("<span foreground='#687980'>DISK</span> " .. stdout)
+        markup = string.format("<span foreground='%s'>DISK</span> %s", beautiful.title, stdout)
+        widget:set_markup(markup)
     end
 )
 

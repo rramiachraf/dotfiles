@@ -6,8 +6,8 @@ memory_widget =
     "bash -c 'vmstat -s -S m | head -n 2 | tail -n 1'",
     5,
     function(widget, stdout)
-        widget.font = beautiful.font
-        widget:set_markup("<span foreground='#687980'>RAM</span> " .. stdout:match("[0-9]+") .. " MiB")
+        markup = string.format("<span foreground='%s'>RAM</span> %s MiB", beautiful.title, stdout:match("[0-9]+"))
+        widget:set_markup(markup)
     end
 )
 

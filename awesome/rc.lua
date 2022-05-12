@@ -364,7 +364,7 @@ globalkeys =
         {modkey},
         "l",
         function()
-            awful.tag.incmwfact(0.05)
+            awful.tag.incwfact(0.05)
         end,
         {description = "increase master width factor", group = "layout"}
     ),

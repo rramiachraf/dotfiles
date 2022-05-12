@@ -5,9 +5,9 @@ local DIR = "/sys/class/power_supply/BAT0/"
 
 function icon_markup(capacity, color)
     if color == nil then
-        color = "#687980"
+        color = beautiful.title
     end
-    markup = "<span foreground='" .. color .. "'>BAT</span> " .. capacity .. "%"
+    markup = string.format("<span foreground='%s'>BAT</span> %d%%", color, capacity)
     return markup
 end
 
@@ -16,8 +16,6 @@ local widget =
     "cat " .. DIR .. "present",
     1,
     function(widget, stdout)
-        widget.font = beautiful.font
-
         if stdout:match("1") then
             local status_file = io.open(DIR .. "status", "r")
             local capacity_file = io.open(DIR .. "capacity", "r")
@@ -38,7 +36,8 @@ local widget =
             status_file:close()
             capacity_file:close()
         else
-            widget:set_markup("<span color='#687980'>BAT</span> ".."N/A")
+            markup = string.format("<span color='%s'>BAT</span> N/A", beautiful.title)
+            widget:set_markup(markup)
         end
     end
 )
