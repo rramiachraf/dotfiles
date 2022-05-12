@@ -8,4 +8,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: sudo apt-get update
       - run: sudo apt-get install awesome
-      - run: awesome -k
+      - run: awesome -k -c ./awesome/rc.lua
