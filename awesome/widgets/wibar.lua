@@ -7,6 +7,7 @@ local weather = require("widgets.weather")
 local clock = require("widgets.clock")
 local disk = require("widgets.disk")
 local network = require("widgets.network")
+local uptime = require("widgets.uptime")
 local systray = require("widgets.systray")
 
 local opts = {}
@@ -26,6 +27,7 @@ function create_wibar(s, tasks, taglists)
         layout = wibox.layout.fixed.horizontal,
         spacing = 15,
         systray,
+        uptime,
         weather,
         disk,
         memory,
