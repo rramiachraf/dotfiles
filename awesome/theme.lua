@@ -22,7 +22,7 @@ theme.border_normal = "#131313"
 theme.border_focus  = theme.main
 
 -- Navbar
-theme.wibar_bg      = theme.bg
+theme.wibar_bg      = theme.bg .. "50"
 theme.wibar_fg      = theme.fg
 
 -- Systray
