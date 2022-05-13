@@ -1,12 +1,14 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
 
+local cmd = [[bash -c "echo `free -h --mega | awk '{if(NR==2) print $3}'`"]]
+
 memory_widget =
     awful.widget.watch(
-    "bash -c 'vmstat -s -S m | head -n 2 | tail -n 1'",
+    cmd,    
     5,
     function(widget, stdout)
-        markup = string.format("<span foreground='%s'>RAM</span> %s MiB", beautiful.title, stdout:match("[0-9]+"))
+        markup = string.format("<span foreground='%s'>RAM</span> %s", beautiful.title, stdout)
         widget:set_markup(markup)
     end
 )
