@@ -19,7 +19,11 @@ weather_widget =
         local temp = data.main.temp
         local description = data.weather[1].main
         local markup = string.format("<span foreground='%s'>WEATHER</span> %.0f°C", beautiful.title, temp)
-        widget:set_markup(markup)
+        
+        -- to make sure it won't throw an error
+        if type(temp) == 'number' then
+            widget:set_markup(markup)
+        end
     end
 )
 
