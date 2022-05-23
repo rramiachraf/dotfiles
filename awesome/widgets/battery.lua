@@ -7,7 +7,7 @@ function icon_markup(capacity, color)
     if color == nil then
         color = beautiful.title
     end
-    markup = string.format("<span foreground='%s'>BAT</span> %d%%", color, capacity)
+    markup = string.format("<span color='%s'>BAT</span> <span color='%s'>%d%%</span>", beautiful.title, color, capacity)
     return markup
 end
 
