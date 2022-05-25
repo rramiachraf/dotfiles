@@ -13,7 +13,7 @@ theme.red = "#FF4848"
 theme.title = "#FDAF75"
 
 -- General
-theme.font          = "jetbrains mono 9"
+theme.font          = "jetbrains mono medium 9"
 
 -- Windows
 theme.useless_gap   = dpi(2)
