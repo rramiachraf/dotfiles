@@ -7,7 +7,7 @@ function icon_markup(capacity, color)
     if color == nil then
         color = beautiful.title
     end
-    markup = string.format("<span color='%s'>BAT</span> <span color='%s'>%d%%</span>", beautiful.title, color, capacity)
+    markup = string.format("<span color='%s' weight='bold'>BAT</span> <span color='%s'>%d%%</span>", beautiful.title, color, capacity)
     return markup
 end
 
@@ -36,7 +36,7 @@ local widget =
             status_file:close()
             capacity_file:close()
         else
-            markup = string.format("<span color='%s'>BAT</span> N/A", beautiful.title)
+            markup = string.format("<span color='%s' weight='bold'>BAT</span> N/A", beautiful.title)
             widget:set_markup(markup)
         end
     end

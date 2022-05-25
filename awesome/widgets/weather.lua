@@ -18,7 +18,7 @@ weather_widget =
         local data = json.decode(stdout)
         local temp = data.main.temp
         local description = data.weather[1].main
-        local markup = string.format("<span foreground='%s'>WEATHER</span> %.0f°C", beautiful.title, temp)
+        local markup = string.format("<span foreground='%s' weight='bold'>WEATHER</span> %.0f°C", beautiful.title, temp)
         
         -- to make sure it won't throw an error
         if type(temp) == 'number' then

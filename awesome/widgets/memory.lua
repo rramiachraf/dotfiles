@@ -8,7 +8,7 @@ memory_widget =
     cmd,    
     5,
     function(widget, stdout)
-        markup = string.format("<span foreground='%s'>RAM</span> %s", beautiful.title, stdout)
+        markup = string.format("<span foreground='%s' weight='bold'>RAM</span> %s", beautiful.title, stdout)
         widget:set_markup(markup)
     end
 )
