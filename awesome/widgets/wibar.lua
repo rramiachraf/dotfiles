@@ -14,7 +14,7 @@ local opts = {}
 
 opts.position = "top"
 
-function create_wibar(s, tasks, taglists)
+function create_wibar(s, taglists)
     opts.screen = s
     wibar = awful.wibar(opts)
 
