@@ -1,7 +1,7 @@
 env:
   TERM: xterm-256color
 window:
-  opacity: 0.8
+  opacity: 0.9
   padding:
     x: 10
     y: 10
@@ -9,7 +9,10 @@ window:
   dynamic_title: true
 font:
   normal:
-    family: jetbrains mono
+    family: Fira code Retina
+  bold:
+    family: Fira code
+    style: bold
   size: 10
 # Catppuccin!
 colors:
