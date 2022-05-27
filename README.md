@@ -1,4 +1,4 @@
-<img src='https://raw.githubusercontent.com/rramiachraf/dotfiles/main/logo.svg' height='400'/>
+<img src='https://raw.githubusercontent.com/rramiachraf/dotfiles/main/logo.svg' height='300' width='100%' />
 
 Collection of my customized dot files.
 ## Awesome
