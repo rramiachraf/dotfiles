@@ -1,4 +1,5 @@
-# dotfiles
+![]("https://raw.githubusercontent.com/rramiachraf/dotfiles/main/logo.svg", "dotfiles")
+
 Collection of my customized dot files.
 ## Awesome
 ### Enivronment Variables
