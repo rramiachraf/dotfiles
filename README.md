@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/rramiachraf/dotfiles/main/logo.svg)
+<img src='https://raw.githubusercontent.com/rramiachraf/dotfiles/main/logo.svg' height='400'/>
 
 Collection of my customized dot files.
 ## Awesome
