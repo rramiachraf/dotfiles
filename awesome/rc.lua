@@ -7,12 +7,10 @@ local gears = require("gears")
 local awful = require("awful")
 require("awful.autofocus")
 -- Widget and layout library
-local wibox = require("wibox")
 -- Theme handling library
 local beautiful = require("beautiful")
 -- Notification library
 local naughty = require("naughty")
-local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -95,10 +93,6 @@ awful.layout.layouts = {
 }
 -- }}}
 
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
-
 -- Create a wibox for each screen and add it
 local taglist_buttons =
     gears.table.join(
@@ -140,42 +134,6 @@ local taglist_buttons =
         5,
         function(t)
             awful.tag.viewprev(t.screen)
-        end
-    )
-)
-
-local tasklist_buttons =
-    gears.table.join(
-    awful.button(
-        {},
-        1,
-        function(c)
-            if c == client.focus then
-                c.minimized = true
-            else
-                c:emit_signal("request::activate", "tasklist", {raise = true})
-            end
-        end
-    ),
-    awful.button(
-        {},
-        3,
-        function()
-            awful.menu.client_list({theme = {width = 250}})
-        end
-    ),
-    awful.button(
-        {},
-        4,
-        function()
-            awful.client.focus.byidx(1)
-        end
-    ),
-    awful.button(
-        {},
-        5,
-        function()
-            awful.client.focus.byidx(-1)
         end
     )
 )
@@ -411,3 +369,17 @@ client.connect_signal(
 )
 -- }}}
 
+
+-- Notifications
+function roundedCorners(cr, width, height)
+    return gears.shape.rounded_rect(cr, width, height, 3)
+end
+
+local naughtyConfig = naughty.config
+naughtyConfig.defaults.shape = roundedCorners
+naughtyConfig.presets.critical.bg = beautiful.red
+naughtyConfig.presets.normal.bg = beautiful.main
+naughtyConfig.presets.low.bg = beautiful.main
+naughtyConfig.spacing = 5
+naughtyConfig.defaults.border_width = 0
+naughtyConfig.defaults.margin = 10
