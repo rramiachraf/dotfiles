@@ -2,13 +2,10 @@ local awful = require("awful")
 local json = require("packages.jsonlua.json")
 local beautiful = require("beautiful")
 
-local price = 0
-local balance = 1498143.16
 local api_key = os.getenv("COINMARKETCAP_API")
 local url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
-local currency = "SHIB"
+local currency = "XMR"
 local full_url = url .. "?symbol=" .. currency
-local percentage_foreground = ""
 
 local cmd = "curl -sL '" .. full_url .. "' -H 'X-CMC_PRO_API_KEY: " .. api_key .. "'"
 
@@ -25,28 +22,14 @@ local crypto_widget =
 
         widget:set_markup(
             string.format(
-                "<span foreground='#687980'>%s</span> %.6f USD <span foreground='%s'>%.2f%%</span>",
+                "<span foreground='%s' weight='bold'>%s</span> %.2f USD <span foreground='%s'>%.2f%%</span>",
+                beautiful.title,
                 currency,
                 price,
                 percentage_foreground,
                 day_percentage
             )
         )
-    end
-)
-
-local crypto_tooltip =
-    awful.tooltip {
-    margins_leftright = 10
-}
-
-crypto_tooltip:add_to_object(crypto_widget)
-
-crypto_widget:connect_signal(
-    "mouse::enter",
-    function()
-        local text = string.format("%.2f %s = %.2f USD", balance, currency, balance * price)
-        crypto_tooltip.text = text
     end
 )
 

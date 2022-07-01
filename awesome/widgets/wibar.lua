@@ -8,6 +8,7 @@ local clock = require("widgets.clock")
 local disk = require("widgets.disk")
 local network = require("widgets.network")
 local uptime = require("widgets.uptime")
+local crypto = require("widgets.crypto")
 local systray = require("widgets.systray")
 
 local opts = {}
@@ -28,6 +29,7 @@ function create_wibar(s, taglists)
         spacing = 15,
         systray,
         uptime,
+        crypto,
         weather,
         disk,
         memory,

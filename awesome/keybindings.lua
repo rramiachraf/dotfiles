@@ -47,7 +47,7 @@ local browser =
     {modkey},
     "q",
     function()
-        awful.spawn("librewolf")
+        awful.spawn("firefox")
     end,
     {
         description = "launch browser",

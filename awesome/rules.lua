@@ -20,7 +20,7 @@ end
 
 browsers = {
     rule_any = { class = { "firefox", "librewolf" } },
-    properties = { maximized_vertical = true, maximized_horizontal = true, tag = "www" }
+    properties = { maximized = true }
 }
 
 function setrules(clientkeys, clientbuttons) 
