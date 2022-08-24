@@ -1,2 +1,4 @@
 colorscheme custom
 set show_current_bitrate=true
+set show_remaining_time=true
+set resume=true
