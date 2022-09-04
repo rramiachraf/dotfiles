@@ -9,9 +9,7 @@ packer.startup(function()
   use {'kyazdani42/nvim-tree.lua', requires = {'kyazdani42/nvim-web-devicons', opt = true}} 
   use {'akinsho/bufferline.nvim', tag = "v2.*", requires = {'kyazdani42/nvim-web-devicons', opt = true}}
   use 'EdenEast/nightfox.nvim'
-
-  -- LSP
-  use 'neovim/nvim-lspconfig'
+  use {'fatih/vim-go', ft = 'go'}
 end)
 
 --[[
@@ -27,7 +25,6 @@ local lualine = require "lualine"
 local tree = require "nvim-tree"
 local bufferline = require "bufferline"
 local nightfox = require "nightfox"
-local lsp = require "lspconfig"
 local map = vim.keymap.set
 
 -- OPTIONS
@@ -61,6 +58,11 @@ tree.setup {
 
 map("n", "<C-a>", tree.toggle)
 
+-- MAPPINGS
+map("i", ";;", function()
+	vim.cmd "stopinsert"
+end)
+
 -- STATUSLINE
 lualine.setup()
 
@@ -71,16 +73,4 @@ bufferline.setup {
 		close_icon = "",
 		offsets = { {filetype = "NvimTree"} }
 	}
-}
-
--- LSP
-local on_attach = function(client, bufnr)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  map('n', 'K', vim.lsp.buf.hover, bufopts)
-  map('n', 'ga', vim.lsp.buf.code_action, bufopts)
-  map('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-end
-
-lsp.gopls.setup {
-	on_attach = on_attach
 }
