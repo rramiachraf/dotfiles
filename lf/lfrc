@@ -1,3 +1,10 @@
 set icons
 set drawbox
 set ignorecase
+
+set previewer ctpv
+set cleaner ctpvclear
+&ctpv -s $id
+&ctpvquit $id
+
+map <delete> delete
