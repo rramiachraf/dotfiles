@@ -1,0 +1,62 @@
+#!/bin/env bash
+
+MAIN_COLOR="#42855B"
+
+Format() {
+	printf "%%{F$MAIN_COLOR}%s%%{F-} %s" "$1" "$2"
+}
+
+
+CurrentTime() {
+	printf "$(date +'%b %d %H:%M')"
+}
+
+Uptime() {
+	local cmd=$(uptime | sed "s/.*up//; s/,.*//; s/min/m/; s/\s//g")
+	Format "UPTIME" "$cmd"
+}
+
+Memory() {
+	local cmd=$(free -h | awk '{if ($1 == "Mem:") print $3 "/" $2}')
+	Format "MEM" "$cmd"
+}
+
+Disk() {
+	local cmd=$(df -h | awk '{if ($1 ~ /^\/dev\/sda/) print $3 "/" $2}')
+	Format "DISK" "$cmd"
+}
+
+Network() {
+	local state="DOWN"
+
+	if [[ $(ip -4 a | grep -o "state UP") == "state UP" ]]
+	then 
+		state="UP"
+	else 
+		state="DOWN"
+	fi
+
+	Format "NET" "$state"
+}
+
+Workspaces() {
+	local focused=$(bspc query -D --names -d focused)
+	bspc query -D --names | 
+		while read -r d; do 
+			if [ $d == $focused ]; then
+				printf "[$d]  "
+			else
+				printf "$d  "
+			fi
+		done
+}
+
+Display() {
+	local fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  "
+	printf "$fmt" "$(Workspaces)" "$(CurrentTime)" "$(Uptime)" "$(Disk)" "$(Memory)" "$(Network)"
+}
+
+while true; do
+	Display
+	sleep 5
+done

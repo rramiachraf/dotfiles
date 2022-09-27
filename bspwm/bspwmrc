@@ -1,0 +1,24 @@
+#! /bin/sh
+
+pgrep -x sxhkd > /dev/null || sxhkd -c ~/.config/bspwm/sxhkdrc &
+
+bspc monitor -d 1 2 3 4 5 6 7 8
+
+bspc config border_width         2
+bspc config window_gap           8
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+# start compositor
+picom &
+# set wallpaper
+feh --bg-scale ~/.config/wallpapers/4.jpg
+# set cursor
+xsetroot -cursor_name left_ptr
+# kill any remaining bars
+killall -q lemonbar
+pgrep "/(panel)|(bash)/" -f | while read -r pid; do kill -9 "$pid"; done
+# start lemonbar
+~/.config/bspwm/panel | lemonbar -p -F "#CFD2CF" -B "#0F0E0E" -f "jetbrains mono:size=9.5" -g x25 &
