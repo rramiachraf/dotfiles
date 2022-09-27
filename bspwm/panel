@@ -26,6 +26,12 @@ Disk() {
 	Format "DISK" "$cmd"
 }
 
+CPU() {
+	local temp=$(cat /sys/class/thermal/thermal_zone0/temp)
+	local c=$(expr $temp / 1000)
+	Format "CPU" "$c%"
+}
+
 Network() {
 	local state="DOWN"
 
@@ -52,8 +58,8 @@ Workspaces() {
 }
 
 Display() {
-	local fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  "
-	printf "$fmt" "$(Workspaces)" "$(CurrentTime)" "$(Uptime)" "$(Disk)" "$(Memory)" "$(Network)"
+	local fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  "
+	printf "$fmt" "$(Workspaces)" "$(CurrentTime)" "$(Uptime)" "$(Disk)" "$(CPU)" "$(Memory)" "$(Network)"
 }
 
 while true; do
