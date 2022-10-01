@@ -49,20 +49,23 @@ Workspaces() {
 	local focused=$(bspc query -D --names -d focused)
 	bspc query -D --names | 
 		while read -r d; do 
+			printf "%%{A:bspc desktop -f $d:}"
 			if [ $d == $focused ]; then
 				printf "[$d]  "
 			else
 				printf "$d  "
 			fi
+			printf "%%{A}"
 		done
 }
 
-Display() {
+Display(){
 	local fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  "
 	printf "$fmt" "$(Workspaces)" "$(CurrentTime)" "$(Uptime)" "$(Disk)" "$(CPU)" "$(Memory)" "$(Network)"
 }
 
-while true; do
+Display
+bspc subscribe desktop | while read -r d
+do
 	Display
-	sleep 5
 done

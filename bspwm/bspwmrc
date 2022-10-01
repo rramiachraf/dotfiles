@@ -21,6 +21,6 @@ xsetroot -cursor_name left_ptr
 killall -q lemonbar
 pgrep "/(panel)|(bash)/" -f | while read -r pid; do kill -9 "$pid"; done
 # start lemonbar
-~/.config/bspwm/panel | lemonbar -p -F "#CFD2CF" -B "#0F0E0E" -f "jetbrains mono:size=9.5" -g x25 &
+~/.config/bspwm/panel | lemonbar -p -F "#CFD2CF" -B "#0F0E0E" -f "scientifica:size=11" -g x25 | $SHELL &
 # window swallowing functionality
 pgrep bspswallow || ~/.config/bspwm/bspswallow &
