@@ -1,6 +1,7 @@
 #!/bin/env bash
 
 MAIN_COLOR="#42855B"
+PANEL_FIFO="/tmp/panel"
 
 Format() {
 	printf "%%{F$MAIN_COLOR}%s%%{F-} %s" "$1" "$2"
@@ -59,13 +60,23 @@ Workspaces() {
 		done
 }
 
-Display(){
-	local fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  "
-	printf "$fmt" "$(Workspaces)" "$(CurrentTime)" "$(Uptime)" "$(Disk)" "$(CPU)" "$(Memory)" "$(Network)"
-}
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
 
-Display
-bspc subscribe desktop | while read -r d
-do
-	Display
-done
+bspc subscribe desktop > "$PANEL_FIFO" &
+while true; do
+	printf "\n" > "$PANEL_FIFO"
+	sleep 5
+done &
+
+while read -r event; do
+	ws=$(Workspaces)
+	time=$(CurrentTime)
+	uptime=$(Uptime)
+	disk=$(Disk)
+	cpu=$(CPU)
+	mem=$(Memory)
+	net=$(Network)
+	fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  "
+	printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$cpu" "$mem" "$net"
+done < "$PANEL_FIFO"

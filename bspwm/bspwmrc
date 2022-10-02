@@ -11,8 +11,6 @@ bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-# start compositor
-picom &
 # set wallpaper
 feh --bg-scale ~/.config/wallpapers/4.jpg
 # set cursor
@@ -21,6 +19,8 @@ xsetroot -cursor_name left_ptr
 killall -q lemonbar
 pgrep "/(panel)|(bash)/" -f | while read -r pid; do kill -9 "$pid"; done
 # start lemonbar
-~/.config/bspwm/panel | lemonbar -p -F "#CFD2CF" -B "#0F0E0E" -f "scientifica:size=11" -g x25 | $SHELL &
+~/.config/bspwm/panel | lemonbar -p -n "LEMON" -F "#CFD2CF" -B "#0F0E0E" -f "scientifica:size=11" -g x25 | $SHELL &
+# start compositor
+picom &
 # window swallowing functionality
 pgrep bspswallow || ~/.config/bspwm/bspswallow &
