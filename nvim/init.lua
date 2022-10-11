@@ -106,7 +106,7 @@ local on_attach = function(client, bufnr)
   vim.cmd "autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif"
   map('n', 'K', vim.lsp.buf.hover, bufopts)
   map('n', 'ga', vim.lsp.buf.code_action, bufopts)
-  map('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+  map('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 lsp.gopls.setup {
