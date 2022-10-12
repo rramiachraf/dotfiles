@@ -23,7 +23,7 @@ Memory() {
 }
 
 Disk() {
-	local cmd=$(df -h | awk '{if ($1 ~ /^\/dev\/sda/) print $3 "/" $2}')
+	local cmd=$(df -h | awk '{if ($6 == "/") print $3 "/" $2}')
 	Format "DISK" "$cmd"
 }
 
