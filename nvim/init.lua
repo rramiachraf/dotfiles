@@ -12,6 +12,9 @@ packer.startup(function()
   use 'EdenEast/nightfox.nvim'
   use 'windwp/nvim-autopairs'
   use 'vimwiki/vimwiki'
+  use 'prisma/vim-prisma'
+  use {'iloginow/vim-stylus', ft = {'stylus'}}
+  use {'evanleck/vim-svelte', requires = {'pangloss/vim-javascript', 'othree/html5.vim'}}
   use {
 	  'prettier/vim-prettier', 
 	  ft = {'javascript', 'json', 'typescript', 'prisma', 'css', 'scss', 'html', 'svelte', 'yaml'},
@@ -62,14 +65,19 @@ vim.cmd "set nocompatible"
 vim.cmd "filetype plugin on"
 vim.cmd "syntax on"
 
+-- SVELTE
+vim.cmd "let g:svelte_preprocessor_tags = [{ 'name': 'ts', 'tag': 'script', 'as': 'typescript' }]"
+vim.cmd "let g:svelte_preprocessors = ['ts']"
+
 -- FILE EXPLORER
 tree.setup {
-	open_on_setup_file = true,
 	open_on_tab = true,
 	view = {
 		width = 25,
 	}
 }
+
+require("nvim-tree.api").tree.open()
 
 map("n", "tt", tree.toggle)
 map("n", "tf", tree.focus)
@@ -129,6 +137,9 @@ lsp.ccls.setup {
 	on_attach = on_attach
 }
 
+lsp.svelte.setup {
+	on_attach = on_attach
+}
 -- FORMATING
 map('n', '<C-p>', function()
 	vim.cmd "Prettier"
