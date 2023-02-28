@@ -51,19 +51,29 @@ Workspaces() {
 	bspc query -D --names | 
 		while read -r d; do 
 			printf "%%{A:bspc desktop -f $d:}"
-			if [ $d == $focused ]; then
-				printf "[$d]  "
+
+			is_occupied=$(bspc query -D --names -d .occupied | grep "$d")
+			if [ $is_occupied == $d ];then
+				printf "%%{F#FFB84C}"
 			else
-				printf "$d  "
+				printf "%%{F}"
 			fi
-			printf "%%{A}"
+
+
+			if [ $d == $focused ]; then
+				printf "[$d]"
+			else
+				printf "$d"
+			fi
+
+			printf "  %%{F-}%%{A}"
 		done
 }
 
 [ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
 mkfifo "$PANEL_FIFO"
 
-bspc subscribe desktop > "$PANEL_FIFO" &
+bspc subscribe > "$PANEL_FIFO" &
 while true; do
 	printf "\n" > "$PANEL_FIFO"
 	sleep 5
