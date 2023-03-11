@@ -1,0 +1,36 @@
+#!/bin/env bash
+
+removeColors(){
+	local COMMAND=$($1 | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2};?)?)?[mGK]//g")
+	printf "$COMMAND\n"
+}
+
+# list interfaces
+COMMAND=$(removeColors "iwctl device list")
+INTERFACE=$(printf "$COMMAND" | 
+	awk '{if (NR > 4 && length($0) > 0) print $1}' | 
+	rofi -dmenu -p "network interface")
+
+iwctl station "$INTERFACE" scan
+
+COMMAND=$(removeColors "iwctl station $INTERFACE get-networks")
+SSID=$(printf "$COMMAND" | 
+	sed -r "s/\s{2,}/+/g" | 
+	(printf "[DISCONNECT]\n" && awk -F+ '{ if (NR > 4) { if ($2 == ">") { print $3 } else { print $2 } } }') | 
+	rofi -dmenu -p "ssid")
+
+if [ "$SSID" == "[DISCONNECT]" ]; then
+	iwctl station "$INTERFACE" disconnect
+	exit 0
+fi
+
+COMMAND=$(removeColors "iwctl known-networks list")
+IS_KNOWN=$(printf "$COMMAND" | grep "$SSID" | head -n 1)
+
+if [ -z "$IS_KNOWN" ]; then
+	PASSWORD=$(echo "" | rofi -dmenu -p "type password")
+	iwctl station "$INTERFACE" connect "$SSID" --passphrase "$PASSWORD"
+	printf "iwctl station \"$INTERFACE\" connect \"$SSID\" --passphrase \"$PASSWORD\""
+else
+	iwctl station "$INTERFACE" connect "$SSID"
+fi

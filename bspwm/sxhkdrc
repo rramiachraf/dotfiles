@@ -18,6 +18,10 @@ super + Escape
 super + F4
 	xsecurelock
 
+# wifi menu
+super + n
+	rofi-wifi-menu
+
 #
 # bspwm hotkeys
 #
