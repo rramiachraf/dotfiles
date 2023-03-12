@@ -1,0 +1,19 @@
+#!/bin/env bash
+
+OPTION=$(printf "Lock\nShut down\nReboot\nSuspend" | rofi -dmenu -p "power menu")
+
+case "$OPTION" in
+	"Lock")
+		xsecurelock
+		;;
+	"Shut down")
+		shutdown now
+		;;
+	"Reboot")
+		reboot
+		;;
+	"Suspend")
+		xsecurelock &
+		systemctl suspend
+		;;
+esac
