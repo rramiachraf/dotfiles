@@ -28,7 +28,7 @@ COMMAND=$(removeColors "iwctl known-networks list")
 IS_KNOWN=$(printf "$COMMAND" | grep "$SSID" | head -n 1)
 
 if [ -z "$IS_KNOWN" ]; then
-	PASSWORD=$(echo "" | rofi -dmenu -p "type password")
+	PASSWORD=$(echo "" | rofi -dmenu -password -p "type password")
 	iwctl station "$INTERFACE" connect "$SSID" --passphrase "$PASSWORD"
 	printf "iwctl station \"$INTERFACE\" connect \"$SSID\" --passphrase \"$PASSWORD\""
 else
