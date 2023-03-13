@@ -21,7 +21,7 @@ COMMAND=$(removeColors "iwctl station $INTERFACE get-networks")
 SSID=$(printf "$COMMAND" | 
 	sed -r "s/\s{2,}/+/g" | 
 	(printf "[DISCONNECT]\n" && awk -F+ '{ if (NR > 4) { if ($2 == ">") { print " "$3 } else { print $2 } } }') | 
-	rofi -dmenu -p "ssid")
+	rofi -dmenu -p "ssid" | sed -r "s/\s*//")
 
 if [ "$SSID" == "[DISCONNECT]" ]; then
 	iwctl station "$INTERFACE" disconnect
