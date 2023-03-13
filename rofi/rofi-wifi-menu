@@ -11,17 +11,25 @@ INTERFACE=$(printf "$COMMAND" |
 	awk '{if (NR > 4 && length($0) > 0) print $1}' | 
 	rofi -dmenu -p "network interface")
 
+if [ -z $INTERFACE ]; then
+	exit 1
+fi
+
 iwctl station "$INTERFACE" scan
 
 COMMAND=$(removeColors "iwctl station $INTERFACE get-networks")
 SSID=$(printf "$COMMAND" | 
 	sed -r "s/\s{2,}/+/g" | 
-	(printf "[DISCONNECT]\n" && awk -F+ '{ if (NR > 4) { if ($2 == ">") { print $3 } else { print $2 } } }') | 
+	(printf "[DISCONNECT]\n" && awk -F+ '{ if (NR > 4) { if ($2 == ">") { print " "$3 } else { print $2 } } }') | 
 	rofi -dmenu -p "ssid")
 
 if [ "$SSID" == "[DISCONNECT]" ]; then
 	iwctl station "$INTERFACE" disconnect
 	exit 0
+fi
+
+if [ -z "$SSID" ]; then
+	exit 1
 fi
 
 COMMAND=$(removeColors "iwctl known-networks list")
