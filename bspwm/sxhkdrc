@@ -22,6 +22,10 @@ super + F4
 super + n
 	rofi-wifi-menu
 
+# power menu
+super + p
+	rofi-power-menu
+
 #
 # bspwm hotkeys
 #
