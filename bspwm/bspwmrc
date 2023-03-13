@@ -12,7 +12,7 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 # set wallpaper
-feh --bg-scale ~/.config/wallpapers/4.jpg
+feh --bg-scale ~/.config/wallpapers/owl.png
 # set cursor
 xsetroot -cursor_name left_ptr
 # kill any remaining bars
