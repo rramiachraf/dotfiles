@@ -6,7 +6,7 @@ Collection of my customized dot files.
 ### Arch Linux
 ```bash
 sudo pacman -Syu
-sudo pacman -S bspwm sxhkd picom rofi feh mpv alacritty cmus lf neovim rofi zathura xsecurelock
+sudo pacman -S bspwm sxhkd picom rofi feh mpv alacritty cmus lf neovim rofi zathura xsecurelock dunst
 git clone https://aur.archlinux.org/lemonbar-xft-git.git lemonbar
 cd lemonbar
 makepkg -si

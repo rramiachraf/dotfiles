@@ -22,5 +22,8 @@ pgrep "/(panel)|(bash)/" -f | while read -r pid; do kill -9 "$pid"; done
 ~/.config/bspwm/panel | lemonbar -p -n "LEMON" -F "#CFD2CF" -B "#0F0E0E" -f "scientifica:size=11" -g x25 | $SHELL &
 # start compositor
 picom &
+# start notification daemon
+killall -q dunst
+dunst &
 # window swallowing functionality
 pgrep bspswallow || ~/.config/bspwm/bspswallow &
