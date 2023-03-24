@@ -1,0 +1,25 @@
+#!/bin/env bash
+
+args=()
+
+for i; do 
+	args+=("$i")
+done
+
+declare -A tags
+
+for i in "${!args[@]}"; do 
+	if ((i % 2 == 0)); then
+		tags["${args[$i]}"]="${args[((i + 1))]}"
+	fi
+done
+
+if [ "${tags[status]}" == "playing" ]; then
+	art=$(printf "%s" "${tags[file]}" | sed -r 's/.*\///; s/.mp3|.flac|.wav|.m4a/.jpg/')
+	cache="$HOME/.cache/cmus"
+	if [ ! -f "$cache/$art" ]; then
+		mkdir -p "$cache"
+		ffmpeg -i "${tags[file]}" -filter:v scale=-2:100 -an "$cache/$art" -y
+	fi
+	dunstify -a "cmus" -r 8989 -i "$cache/$art" "${tags[artist]}" "${tags[title]}"
+fi
