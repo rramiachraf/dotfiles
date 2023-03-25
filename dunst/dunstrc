@@ -78,3 +78,10 @@
     foreground = "#FAF5E4"
     frame_color = "#FC4F4F"
     timeout = 0
+
+[music]
+    category = "music"
+    min_icon_size = 50
+    max_icon_size = 50
+    timeout = 3
+

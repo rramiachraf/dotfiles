@@ -15,11 +15,12 @@ for i in "${!args[@]}"; do
 done
 
 if [ "${tags[status]}" == "playing" ]; then
+	# could be improved later by storing album's art instead of every single song
 	art=$(printf "%s" "${tags[file]}" | sed -r 's/.*\///; s/.mp3|.flac|.wav|.m4a/.jpg/')
 	cache="$HOME/.cache/cmus"
 	if [ ! -f "$cache/$art" ]; then
 		mkdir -p "$cache"
-		ffmpeg -i "${tags[file]}" -filter:v scale=-2:100 -an "$cache/$art" -y
+		ffmpeg -i "${tags[file]}" -filter:v scale=-2:50 -an "$cache/$art" -y
 	fi
-	dunstify -a "cmus" -r 8989 -i "$cache/$art" "${tags[artist]}" "${tags[title]}"
+	notify-send -a "cmus" -c "music" -r 8989 -i "$cache/$art" "${tags[artist]}" "${tags[title]}"
 fi
