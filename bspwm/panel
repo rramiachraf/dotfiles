@@ -33,6 +33,12 @@ CPU() {
 	Format "CPU" "$c%"
 }
 
+Battery() {
+	local capacity=$(cat /sys/class/power_supply/BAT0/capacity)
+	local status=$(cat /sys/class/power_supply/BAT0/status | cut -c 1)
+	Format "BAT" "$capacity%[$status]"
+}
+
 Network() {
 	local state="DOWN"
 
@@ -87,6 +93,7 @@ while read -r event; do
 	cpu=$(CPU)
 	mem=$(Memory)
 	net=$(Network)
-	fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  "
-	printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$cpu" "$mem" "$net"
+	bat=$(Battery)
+	fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  %s  "
+	printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$bat" "$cpu" "$mem" "$net"
 done < "$PANEL_FIFO"
