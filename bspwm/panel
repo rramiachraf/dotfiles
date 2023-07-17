@@ -18,8 +18,17 @@ Uptime() {
 }
 
 Memory() {
-	local cmd=$(free -h | awk '{if ($1 == "Mem:") print $3 "/" $2}')
-	Format "MEM" "$cmd"
+	local info=$(cat /proc/meminfo | grep 'Mem\|Buffers\|\Cached:\|Shmem:\|SReclaimable')
+	local total=$(echo "$info" | awk '{if (NR==1) {print $2}}')
+	local free=$(echo "$info" | awk '{if (NR==2) {print $2}}')
+	local buffers=$(echo "$info" | awk '{if (NR==4) {print $2}}')
+	local cache=$(echo "$info" | awk '{if (NR==5) {print $2}}')
+	local shared=$(echo "$info" | awk '{if (NR==7) {print $2}}')
+	local srec=$(echo "$info" | awk '{if (NR==8) {print $2}}')
+
+	local f_total=$(echo $(( $total * 1024 )) | numfmt --to=iec-i --format %.2f)
+	local f_used=$(echo $(( ($total+$shared-$free-$buffers-$cache-$srec)*1024 )) | numfmt --to=iec-i)
+	Format "MEM" "$f_used/$f_total"
 }
 
 Disk() {
