@@ -93,7 +93,14 @@ while read -r event; do
 	cpu=$(CPU)
 	mem=$(Memory)
 	net=$(Network)
-	bat=$(Battery)
-	fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  %s  "
-	printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$bat" "$cpu" "$mem" "$net"
+
+	# check if laptop or desktop to show battery
+	if [ -d "/sys/module/battery" ]; then
+		bat=$(Battery)
+		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  %s  "
+		printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$bat" "$cpu" "$mem" "$net"
+	else
+		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  "
+		printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$cpu" "$mem" "$net"
+	fi
 done < "$PANEL_FIFO"
