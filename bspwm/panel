@@ -51,7 +51,7 @@ Battery() {
 Network() {
 	local state="DOWN"
 
-	if [[ $(ip -4 a | grep wlan | grep -o "state UP" | head -n 1) == "state UP" ]]
+	if [[ $(ip -4 a | grep "^[[:digit:]]: en\|wl" | grep -o "state UP" | head -n 1) == "state UP" ]]
 	then 
 		state="UP"
 	else 
