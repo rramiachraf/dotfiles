@@ -3,6 +3,13 @@
 MAIN_COLOR="#42855B"
 PANEL_FIFO="/tmp/panel"
 
+Cleanup(){
+	rm -f "$PANEL_FIFO"
+	kill -9 $BSPC_PID
+}
+
+trap Cleanup EXIT
+
 Format() {
 	printf "%%{F$MAIN_COLOR}%s%%{F-} %s" "$1" "$2"
 }
@@ -18,7 +25,7 @@ Uptime() {
 }
 
 Memory() {
-	local info=$(cat /proc/meminfo | grep 'Mem\|Buffers\|\Cached:\|Shmem:\|SReclaimable')
+	local info=$(cat /proc/meminfo | grep 'Mem\|Buffers\|Cached:\|Shmem:\|SReclaimable')
 	local total=$(echo "$info" | awk '{if (NR==1) {print $2}}')
 	local free=$(echo "$info" | awk '{if (NR==2) {print $2}}')
 	local buffers=$(echo "$info" | awk '{if (NR==4) {print $2}}')
@@ -37,8 +44,14 @@ Disk() {
 }
 
 CPU() {
-	local temp=$(cat /sys/class/thermal/thermal_zone0/temp)
-	local c=$(expr $temp / 1000)
+	local cpus=$(ls /sys/class/thermal/ | grep thermal_zone | wc -l)
+	local total_temp=0
+	for cpu in $(seq 0 $((cpus - 1)))
+	do
+		local temp=$(cat "/sys/class/thermal/thermal_zone$cpu/temp")
+		total_temp=$((total_temp + temp))
+	done
+	local c=$((total_temp / 1000 / cpus))
 	Format "CPU" "$c%"
 }
 
@@ -68,7 +81,7 @@ Workspaces() {
 			printf "%%{A:bspc desktop -f $d:}"
 
 			is_occupied=$(bspc query -D --names -d .occupied | grep "$d")
-			if [ $is_occupied == $d ];then
+			if [ "$is_occupied" = "$d" ];then
 				printf "%%{F#FFB84C}"
 			else
 				printf "%%{F}"
@@ -92,7 +105,7 @@ bspc subscribe > "$PANEL_FIFO" &
 while true; do
 	printf "\n" > "$PANEL_FIFO"
 	sleep 5
-done &
+done & BSPC_PID=$!
 
 while read -r event; do
 	ws=$(Workspaces)
@@ -106,10 +119,10 @@ while read -r event; do
 	# check if laptop or desktop to show battery
 	if [ -d "/sys/module/battery" ]; then
 		bat=$(Battery)
-		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  %s  "
+		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  %s  \n"
 		printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$bat" "$cpu" "$mem" "$net"
 	else
-		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  "
+		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  \n"
 		printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$cpu" "$mem" "$net"
 	fi
 done < "$PANEL_FIFO"
