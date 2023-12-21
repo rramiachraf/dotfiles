@@ -117,7 +117,7 @@ while read -r event; do
 	net=$(Network)
 
 	# check if laptop or desktop to show battery
-	if [ -d "/sys/module/battery" ]; then
+	if [ -d "/sys/class/power_supply/BAT0/capacity" ]; then
 		bat=$(Battery)
 		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  %s  \n"
 		printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$bat" "$cpu" "$mem" "$net"
