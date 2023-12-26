@@ -26,6 +26,10 @@ super + n
 super + p
 	rofi-power-menu
 
+# take screenshot
+super + u
+	location="$HOME/Pictures/Screenshots"; mkdir -p "$location" && maim "$location/$(uuidgen).png" && notify-send -a "maim" "Screenshot saved to" "$location"
+
 #
 # bspwm hotkeys
 #
