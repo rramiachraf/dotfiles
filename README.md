@@ -19,6 +19,7 @@ Collection of my customized dot files.
 - dunst
 - lemonbar (XFT)
 - iwd
+- libnotify
 
 ### Fonts
 - [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono)
