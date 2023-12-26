@@ -20,6 +20,7 @@ Collection of my customized dot files.
 - lemonbar (XFT)
 - iwd
 - libnotify
+- maim
 
 ### Fonts
 - [JetBrains Mono](https://github.com/JetBrains/JetBrainsMono)
