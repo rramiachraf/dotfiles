@@ -34,6 +34,7 @@ end)
 
 local lualine = require "lualine"
 local tree = require "nvim-tree"
+local treeApi = require "nvim-tree.api"
 local bufferline = require "bufferline"
 local nightfox = require "nightfox"
 local autopairs = require "nvim-autopairs"
@@ -73,14 +74,15 @@ vim.cmd "let g:svelte_preprocessors = ['ts']"
 tree.setup {
 	open_on_tab = true,
 	view = {
-		width = 25,
+		width = 30,
 	}
 }
 
-require("nvim-tree.api").tree.open()
+treeApi.tree.open()
 
-map("n", "tt", tree.toggle)
-map("n", "tf", tree.focus)
+map("n", "tt", treeApi.tree.toggle)
+map("n", "tf", treeApi.tree.focus)
+
 
 -- AUTOPAIRS
 autopairs.setup()
