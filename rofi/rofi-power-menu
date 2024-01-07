@@ -7,7 +7,7 @@ case "$OPTION" in
 		xsecurelock
 		;;
 	"Shut down")
-		shutdown now
+		systemctl poweroff
 		;;
 	"Reboot")
 		reboot
