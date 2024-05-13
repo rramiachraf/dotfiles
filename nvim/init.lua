@@ -1,42 +1,49 @@
--- PACKER SETUP
-local packer = require('packer')
+-- Setup lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-packer.startup(function()
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
 
-  use 'kyazdani42/nvim-web-devicons'
-  use 'nvim-lualine/lualine.nvim'
-  use 'kyazdani42/nvim-tree.lua' 
-  use {'akinsho/bufferline.nvim', tag = "v2.*"}
-  use 'EdenEast/nightfox.nvim'
-  use 'windwp/nvim-autopairs'
-  use 'vimwiki/vimwiki'
-  use 'prisma/vim-prisma'
-  use {'iloginow/vim-stylus', ft = {'stylus'}}
-  use {'evanleck/vim-svelte', requires = {'pangloss/vim-javascript', 'othree/html5.vim'}}
-  use {
-	  'prettier/vim-prettier', 
-	  ft = {'javascript', 'json', 'typescript', 'prisma', 'css', 'scss', 'html', 'svelte', 'yaml'},
-	  run = "yarn install --frozen-lockfile --production"
-  }
-  use 'neovim/nvim-lspconfig'
-end)
-
---[[
-   _____  ____   _   _  ______  _____  _____ 
-  / ____|/ __ \ | \ | ||  ____||_   _|/ ____|
- | |    | |  | ||  \| || |__     | | | |  __ 
- | |    | |  | || . ` ||  __|    | | | | |_ |
- | |____| |__| || |\  || |      _| |_| |__| |
-  \_____|\____/ |_| \_||_|     |_____|\_____|
---]]
+require("lazy").setup({
+	{'nvim-tree/nvim-web-devicons'},
+	{'nvim-lualine/lualine.nvim'},
+	{'kyazdani42/nvim-tree.lua'},
+	{'EdenEast/nightfox.nvim'},
+	{'windwp/nvim-autopairs'},
+	{'neovim/nvim-lspconfig'},
+	{
+		'prettier/vim-prettier', 
+		ft = {'javascript', 'json', 'typescript', 'prisma', 'css', 'scss', 'html', 'svelte', 'yaml'},
+		build = "yarn install --frozen-lockfile --production"
+	},
+	{
+		'akinsho/bufferline.nvim',
+		version = "v4.*"
+	},
+	{
+		'nvim-treesitter/nvim-treesitter',
+		build = ':TSUpdate'
+	},
+	{
+		"akinsho/toggleterm.nvim", 
+		version = '*', 
+		config = true
+	}
+})
 
 local lualine = require "lualine"
 local tree = require "nvim-tree"
 local treeApi = require "nvim-tree.api"
 local bufferline = require "bufferline"
-local nightfox = require "nightfox"
 local autopairs = require "nvim-autopairs"
 local lsp = require "lspconfig"
 local map = vim.keymap.set
@@ -48,18 +55,19 @@ vim.opt.background = "dark"
 vim.opt.showmode = false
 vim.opt.fillchars = "eob: "
 vim.opt.termguicolors = true
+vim.opt.autoread = true
 
--- COLOR SCHEME
-nightfox.setup {
+require("nightfox").setup {
 	options = {
 		styles = {
 			comments = "italic",
-			keywords = "bold"
+			keywords = "bold",
+			functions = "bold"
 		}
 	}
 }
 
-vim.cmd "colorscheme duskfox"
+vim.cmd "colorscheme nightfox"
 
 -- VIM WIKI
 vim.cmd "set nocompatible"
@@ -119,30 +127,24 @@ local on_attach = function(client, bufnr)
   map('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
-lsp.gopls.setup {
-	on_attach = on_attach
-}
+vim.filetype.add({ extension = { templ = "templ" } })
 
-lsp.tsserver.setup{
-	on_attach = on_attach
-}
+local servers = { 'gopls', 'tsserver', 'tailwindcss', 'prismals', 'cssls', 'svelte', 'templ', 'html', 'graphql' }
+for _, server in ipairs(servers) do
+	lsp[server].setup({
+		on_attach = on_attach
+	})
+end 
 
-lsp.tailwindcss.setup {
-	on_attach = on_attach
-}
-
-lsp.prismals.setup {
-	on_attach = on_attach
-}
-
-lsp.ccls.setup {
-	on_attach = on_attach
-}
-
-lsp.svelte.setup {
-	on_attach = on_attach
-}
 -- FORMATING
 map('n', '<C-p>', function()
 	vim.cmd "Prettier"
 end)
+
+require'nvim-treesitter.configs'.setup {
+  sync_install = false,
+  auto_install = true,
+  highlight = {
+    enable = true,
+  },
+}
