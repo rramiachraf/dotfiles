@@ -22,7 +22,7 @@ require("lazy").setup({
 	{'neovim/nvim-lspconfig'},
 	{
 		'prettier/vim-prettier', 
-		ft = {'javascript', 'json', 'typescript', 'prisma', 'css', 'scss', 'html', 'svelte', 'yaml'},
+		ft = {'javascript', 'json', 'typescript', 'prisma', 'css', 'scss', 'html', 'svelte', 'yaml', 'graphql', 'typescriptreact'},
 		build = "yarn install --frozen-lockfile --production"
 	},
 	{
@@ -32,11 +32,6 @@ require("lazy").setup({
 	{
 		'nvim-treesitter/nvim-treesitter',
 		build = ':TSUpdate'
-	},
-	{
-		"akinsho/toggleterm.nvim", 
-		version = '*', 
-		config = true
 	}
 })
 
