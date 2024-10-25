@@ -30,6 +30,10 @@ super + p
 super + u
 	location="$HOME/Pictures/Screenshots"; mkdir -p "$location" && maim "$location/$(uuidgen).png" && notify-send -a "maim" "Screenshot saved to" "$location"
 
+# flatpak apps
+super + a
+	rofi-flatpak-menu
+
 #
 # bspwm hotkeys
 #

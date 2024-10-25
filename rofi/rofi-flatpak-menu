@@ -1,0 +1,1 @@
+APP=$(flatpak list --app --columns application | rofi -dmenu -p "Select application") && flatpak run "$APP"
