@@ -11,8 +11,10 @@ bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
+bspc rule --add Firefox monitor=1 follow=on
+
 # set wallpaper
-feh --bg-scale ~/.config/wallpapers/astronaut.jpg
+feh --bg-scale ~/.config/wallpapers/cosmic1.jpeg
 # set cursor
 xsetroot -cursor_name left_ptr
 # kill any remaining bars
