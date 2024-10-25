@@ -74,6 +74,19 @@ Network() {
 	Format "NET" "$state"
 }
 
+Mic() {
+	local is_muted="$(pactl get-source-mute `pactl get-default-source` | sed 's/Mute: //')"
+	local mic="NO"
+
+	if [ "$is_muted" = "no" ];then
+		mic="GOOD"
+	else
+		mic="MUTED"
+	fi
+
+	Format "MIC" "%{A:pactl set-source-mute `pactl get-default-source` toggle && echo > "$PANEL_FIFO":}$mic%{A}"
+}
+
 Workspaces() {
 	local focused=$(bspc query -D --names -d focused)
 	bspc query -D --names | 
@@ -115,14 +128,15 @@ while read -r event; do
 	cpu=$(CPU)
 	mem=$(Memory)
 	net=$(Network)
+	mic=$(Mic)
 
 	# check if laptop or desktop to show battery
 	if [ -d "/sys/class/power_supply/BAT0/capacity" ]; then
 		bat=$(Battery)
-		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  %s  \n"
-		printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$bat" "$cpu" "$mem" "$net"
+		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  %s  %s  \n"
+		printf "$fmt" "$ws" "$time" "$uptime" "$mic" "$disk" "$bat" "$cpu" "$mem" "$net"
 	else
-		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  \n"
-		printf "$fmt" "$ws" "$time" "$uptime" "$disk" "$cpu" "$mem" "$net"
+		fmt="%%{l}  %s%%{c}%s%%{r}%s  %s  %s  %s  %s  %s  \n"
+		printf "$fmt" "$ws" "$time" "$uptime" "$mic" "$disk" "$cpu" "$mem" "$net"
 	fi
 done < "$PANEL_FIFO"
