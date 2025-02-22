@@ -2,5 +2,5 @@ colorscheme custom
 set show_current_bitrate=true
 set show_remaining_time=true
 set resume=true
-set softvol=true
+#set softvol=true
 set status_display_program=.config/cmus/notify
